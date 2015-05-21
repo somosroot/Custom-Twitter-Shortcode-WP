@@ -13,18 +13,23 @@
 //Carga del dominio de traducciones
 load_plugin_textdomain('radd', false, dirname( plugin_basename( __FILE__ ) ).'/lang');
 
+//carga de configuración
+require "class/shortcodes-radd.class.php";
 
 // integracion con twitter
 require "lib/twitteroauth/autoload.php";
 use Abraham\TwitterOAuth\TwitterOAuth;
 
-define('CONSUMER_KEY', '');
-define('CONSUMER_SECRET', '');
-define('ACCESS_TOKEN', '');
-define('ACCESS_TOKEN_SECRET', '');
+//Cargamos los tokes definidos en el settings de la administración
+$options = get_option( 'scradd_option_name' );
+define('CONSUMER_KEY', $options['consumer_key']);
+define('CONSUMER_SECRET', $options['consumer_secret']);
+define('ACCESS_TOKEN', $options['access_token']);
+define('ACCESS_TOKEN_SECRET', $options['access_token_secret']);
+
 
 // Funciones principales del plugin
-function info_tc( $atts ) {
+function sc_radd( $atts ) {
 
     extract( shortcode_atts( array(
         'tag' => 'TerritorioCreativo',
@@ -52,12 +57,12 @@ function info_tc( $atts ) {
         $loop = new WP_Query(  $args );
 
         while ( $loop->have_posts() ) : $loop->the_post();
-
-            $output .= '<h4><a href="'.get_permalink(get_the_ID()).'">'.get_the_title().'</a></h4>'; 
-            $output .= '<p>'.substr(get_the_excerpt(),0,135).'...'.'</p>';
-            // $output .= '<p>' . get_permalink() .'</p>';  //Oculto mientras definimos si hay algún acortador de urls disponile
+            
             $time = get_the_time( 'Y-m-d h:i', get_the_ID() ); 
-            $output .= '<p>'. $prefix . time_elapsed(strtotime( $time )) . $sufix .'</p>'; 
+
+            $output .= '<p class="title"><strong><a href="'.get_permalink(get_the_ID()).'">'.get_the_title().'</a></strong></p>'; 
+            $output .= '<p class="excerpt">'.substr(get_the_excerpt(),0,135).'...'.'</p>';
+            $output .= '<p class="date">'. $prefix . time_elapsed(strtotime( $time )) . $sufix .'</p>'; 
 
         endwhile;
 
@@ -67,31 +72,32 @@ function info_tc( $atts ) {
         $toa = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
 
         $max_id = "";
-        foreach (range(1, 10) as $i) { // up to 10 result pages
 
-            $query = array(
-                "q" => "#Niche since:2014-05-17 until:2014-05-19", // Change here
-                "count" => 20,
-                "result_type" => "recent",
-                "max_id" => $max_id,
-            );
+        $query = array(
+            "q" => $tag, // Change here
+            "count" => $posts_per_page,
+            "result_type" => "recent",
+            "max_id" => $max_id,
+        );
 
-            $results = $toa->get('search/tweets', $query);
+        $results = $toa->get('search/tweets', $query);
+        
+        foreach ($results->statuses as $result) {
 
-            foreach ($results->statuses as $result) {
-                print $output .= " [" . $result->created_at . "] " . $result->user->screen_name . ": " . $result->text . "\n";
-                $max_id = $result->id_str; // Set max_id for the next search result page
-            }
+            $time = get_the_time( 'Y-m-d h:i', get_the_ID() ); 
+
+            $output .= '<p class="title"><strong>'.$result->user->name .'</strong></p>'; 
+            $output .= '<p class="excerpt">'. $result->text  .'</p>';
+            $output .= '<p class="url">'. $result->url  .'</p>';
+            $output .= '<p class="date">'. $prefix . time_elapsed(strtotime( $result->created_at )) . $sufix .'</p>'; 
+
+            $max_id = $result->id_str; // Set max_id for the next search result page
         }
     }
 
-
     return $output;
 }
-add_shortcode( 'info_tc', 'info_tc' );
-
-
-
+add_shortcode( 'sc_radd', 'sc_radd' );
 
 //Formateo de fechas tipo "hace 9 meses"
 function time_elapsed ($time)
