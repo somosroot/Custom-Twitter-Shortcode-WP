@@ -1,0 +1,94 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Shorcodes RADD\n"
+"POT-Creation-Date: 2015-05-21 18:02+0100\n"
+"PO-Revision-Date: 2015-05-21 18:03+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: shorcodes-radd.php\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: shorcodes-radd.php:59
+msgid "year"
+msgstr "año"
+
+#: shorcodes-radd.php:59
+msgid "years"
+msgstr "años"
+
+#: shorcodes-radd.php:60
+msgid "month"
+msgstr "mes"
+
+#: shorcodes-radd.php:60
+msgid "months"
+msgstr "meses"
+
+#: shorcodes-radd.php:61
+msgid "week"
+msgstr "semana"
+
+#: shorcodes-radd.php:61
+msgid "weeks"
+msgstr "semanas"
+
+#: shorcodes-radd.php:62
+msgid "day"
+msgstr "día"
+
+#: shorcodes-radd.php:62
+msgid "days"
+msgstr "días"
+
+#: shorcodes-radd.php:63
+msgid "hour"
+msgstr "hora"
+
+#: shorcodes-radd.php:63
+msgid "hours"
+msgstr "horas"
+
+#: shorcodes-radd.php:64
+msgid "minute"
+msgstr "minuto"
+
+#: shorcodes-radd.php:64
+msgid "minutes"
+msgstr "minutos"
+
+#: shorcodes-radd.php:65
+msgid "second"
+msgstr "segundo"
+
+#: shorcodes-radd.php:65
+msgid "seconds"
+msgstr "segundos"
+
+#. Plugin Name of the plugin/theme
+msgid "Shorcodes RADD"
+msgstr "Shorcodes RADD"
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "http://www.agenciaroot.es"
+msgstr "http://www.agenciaroot.es"
+
+#. Description of the plugin/theme
+msgid "Shorcodes personalizados desarrollados por Agencia Root"
+msgstr "Shorcodes personalizados desarrollados por Agencia Root"
+
+#. Author of the plugin/theme
+msgid "Agencia Root"
+msgstr "Agencia Root"
